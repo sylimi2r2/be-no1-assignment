@@ -19,8 +19,7 @@ public class App {
             char operator = sc.next().charAt(0);
 
             // 연산자에 따른 result 계산
-            int result = 0;
-            boolean isDouble = false;
+            Number result;
             switch (operator) {
                 case '+':
                     result = leftOperand + rightOperand;
@@ -35,12 +34,13 @@ public class App {
                     // zero divisor 방지
                     if (rightOperand == 0) {
                         System.out.println("나눗셈 연산에서 분모(두번째 정수)에 0이 입력될 수 없습니다.");
-                        continue;
+                        result = null;
+                        break;
                     }
 
                     // 나눗셈 결과가 소수인 경우 판별
                     if (leftOperand % rightOperand != 0) {
-                        isDouble = true;
+                        result = (double)leftOperand / rightOperand;
                         break;
                     }
 
@@ -48,13 +48,10 @@ public class App {
                     break;
                 default:
                     System.out.println("잘못된 연산자를 입력하셨습니다.");
-                    continue;
+                    result = null;
             }
 
-            // 결과 출력 결과가 소수인 경우에 double로 연산
-            if (isDouble)
-                System.out.println("결과: " + (double)leftOperand / rightOperand);
-            else
+            if (result != null)
                 System.out.println("결과: " + result);
 
             // 종료할지 확인
